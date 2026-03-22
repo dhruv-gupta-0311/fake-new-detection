@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments (Crucial for UV)
+.venv/
+env/
+venv/
+ENV/
+
+# Data files (To avoid pushing 50MB+ datasets)
+*.csv
+*.json
+*.sqlite
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
