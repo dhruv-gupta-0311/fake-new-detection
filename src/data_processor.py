@@ -19,8 +19,8 @@ class DataProcessor:
             nltk.download('wordnet')
             self.lemmatizer = WordNetLemmatizer()
             
-    def prep_dataframe(self, file_path, nrows=1000):
-        #loading dataset and selecting first 1000 rows to merge title and text columns
+    def prep_dataframe(self, file_path, nrows):
+        #loading dataset and selecting 72000 rows to merge title and text columns
         df = pd.read_csv(file_path, low_memory=False, nrows=nrows)
         df['title'] = df['title'].fillna('')
         df['text'] = df['text'].fillna('')
