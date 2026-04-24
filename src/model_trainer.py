@@ -7,10 +7,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, precision_recall_curve, auc
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
-extra_stop_words = ['reuters', 'said', 'video', 'image', 'via', '2016', 'october', 'november', 'donald', 'hillary']
+extra_stop_words = ['reuters', 'video', 'image', 'via', '2016', 'october', 'november', 'donald', 'hillary']
 stop_words_final = list(ENGLISH_STOP_WORDS.union(extra_stop_words))
 class ModelTrainer:
-    def __init__(self, max_features=5000):
+    def __init__(self, max_features=50000):
         self.vectorizer = TfidfVectorizer(max_features=max_features, ngram_range=(1, 2), stop_words=stop_words_final)
         self.model = LogisticRegression(max_iter=1000, random_state=42)
         if not os.path.exists('models'):
@@ -22,9 +22,13 @@ class ModelTrainer:
         df.dropna(subset=['content'], inplace=True)
         X = df['content']
         Y = df['label']
+        X_train_raw, X_test_raw, Y_train, Y_test = train_test_split(
+        X, Y, test_size=0.2, random_state=42, stratify=Y
+    )
         print("vectorizing using TF-IDF")
-        X_vectorized = self.vectorizer.fit_transform(X)
-        return train_test_split(X_vectorized, Y, test_size=0.2, random_state=42)
+        X_train = self.vectorizer.fit_transform(X_train_raw)
+        X_test = self.vectorizer.transform(X_test_raw)
+        return X_train, X_test, Y_train, Y_test
     
     def train_model_logistic(self, X_train, Y_train):
         print("training logistic regression model")
