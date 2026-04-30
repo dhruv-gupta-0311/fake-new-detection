@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, precision_recall_curve, auc
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
-extra_stop_words = ['reuters', 'video', 'image', 'via', '2016', 'october', 'november', 'donald', 'hillary']
+extra_stop_words = ['reuters', 'video', 'image', 'via', '2016', 'october', 'november', 'donald', 'hillary', 'trump', 'clinton']
 stop_words_final = list(ENGLISH_STOP_WORDS.union(extra_stop_words))
 class ModelTrainer:
     def __init__(self, max_features=50000):
