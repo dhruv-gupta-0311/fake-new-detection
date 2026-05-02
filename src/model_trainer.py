@@ -12,7 +12,7 @@ stop_words_final = list(ENGLISH_STOP_WORDS.union(extra_stop_words))
 class ModelTrainer:
     def __init__(self, max_features=50000):
         self.vectorizer = TfidfVectorizer(max_features=max_features, ngram_range=(1, 2), stop_words=stop_words_final)
-        self.model = LogisticRegression(max_iter=1000, random_state=42)
+        self.model = LogisticRegression(max_iter=1000, random_state=42, class_weight='balanced')
         if not os.path.exists('models'):
             os.makedirs('models')
     
